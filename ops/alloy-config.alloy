@@ -1,6 +1,6 @@
-// 1. Discover the telemetry log file
+// 1. Discover the telemetry log file and label it
 local.file_match "telemetry" {
-  path_targets = [{"__path__" = "/app/data/telemetry_logs.json"}]
+  path_targets = [{"__path__" = "/app/data/telemetry_logs.json", "job" = "exo_rag_inference"}]
 }
 
 // 2. Read the JSON logs
@@ -9,12 +9,9 @@ loki.source.file "telemetry_logs" {
   forward_to = [loki.write.loki_backend.receiver]
 }
 
-// 3. Ship to the local Loki container (Forcing the label here)
+// 3. Ship to the local Loki container
 loki.write "loki_backend" {
   endpoint {
     url = "http://loki:3100/loki/api/v1/push"
-  }
-  external_labels = {
-    job = "exo_rag_inference",
   }
 }
