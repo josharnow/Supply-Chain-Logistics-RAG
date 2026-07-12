@@ -1,0 +1,8 @@
+pandas 
+langchain 
+langchain-chroma
+langchain-huggingface 
+sentence-transformers 
+jupyter 
+requests
+kagglehub

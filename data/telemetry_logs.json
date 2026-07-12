@@ -1,0 +1,2 @@
+{"inference_latency_sec": 0.0, "status_code": 500, "error_flag": 1, "retrieval_latency_sec": 0.32169294357299805, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783886972.925392}
+{"inference_latency_sec": 3.0036771297454834, "status_code": 200, "error_flag": 0, "retrieval_latency_sec": 0.09071803092956543, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783888614.6571798}
