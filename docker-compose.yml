@@ -1,0 +1,34 @@
+# For Alloy (log, traces, and metrics collector), Loki (log database), and Grafana (visualization)
+# Alloy reads the telemetry_logs.json file line by line the moment the Python script writes to it
+# Alloy forwards the logs to Loki. Loki indexes the labels (like job: exo_rag_inference) and compresses the actual JSON payloads into chunks
+# Grafana acts as the visualization layer, querying Loki for logs and displaying them in dashboards
+
+services:
+  alloy:
+    image: grafana/alloy:latest
+    # Run the Alloy binary targeting the River config file
+    command: run --server.http.listen-addr=0.0.0.0:12345 /etc/alloy/config.alloy
+    volumes:
+      - ./ops/alloy-config.alloy:/etc/alloy/config.alloy
+      - ./data:/app/data:ro
+    depends_on:
+      - loki
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./ops/loki-config.yaml:/etc/loki/local-config.yaml
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ops/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    depends_on:
+      - loki
