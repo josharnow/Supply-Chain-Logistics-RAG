@@ -4,3 +4,11 @@
 {"inference_latency_sec": 2.637408971786499, "status_code": 200, "error_flag": 0, "retrieval_latency_sec": 0.0242922306060791, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783890681.1671}
 {"inference_latency_sec": 1.505, "total_tokens": 388, "security_violation": 0, "timestamp": 1783906533.73533}
 {"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783906533.737458}
+{"inference_latency_sec": 0.0161, "total_tokens": 0, "security_violation": 0, "timestamp": 1783908309.1353412}
+{"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908309.13596}
+{"inference_latency_sec": 0.0103, "total_tokens": 0, "security_violation": 0, "timestamp": 1783908433.068297}
+{"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908433.068599}
+{"inference_latency_sec": 0.0119, "total_tokens": 0, "security_violation": 0, "timestamp": 1783908533.87625}
+{"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908533.8766139}
+{"inference_latency_sec": 4.6052, "total_tokens": 648, "security_violation": 0, "timestamp": 1783908555.9977589}
+{"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908555.99856}

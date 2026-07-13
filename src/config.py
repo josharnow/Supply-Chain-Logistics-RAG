@@ -13,7 +13,8 @@ SITREP_FILE = DATA_DIR / "sitrep_data.json"
 PROMPT_FILE = BASE_DIR / "src" / "prompts" / "logistics_assistant.md"
 
 # Model & System Configuration
-MODEL_NAME = "llama-3-8b"
+# Fallback line
+MODEL_NAME = "mlx-community/Llama-3.2-3B-Instruct-8bit"
 QUANTIZATION = "8-bit"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K_RESULTS = 3
