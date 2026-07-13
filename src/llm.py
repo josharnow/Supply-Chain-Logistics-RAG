@@ -8,10 +8,10 @@ class InferenceEngine:
         # LangChain's OpenAI wrapper pointed at your local Exo node
         self.llm = ChatOpenAI(
             openai_api_base="http://localhost:52415/v1",
-            openai_api_key="exo-local-token", # Required by SDK, ignored by Exo
-            model_name=MODEL_NAME,
+            api_key="exo-local-token", # Required by SDK, ignored by Exo
+            name=MODEL_NAME,
             temperature=0.1,
-            max_tokens=512
+            max_completion_tokens=512
         )
         
         try:
