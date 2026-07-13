@@ -12,3 +12,9 @@
 {"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908533.8766139}
 {"inference_latency_sec": 4.6052, "total_tokens": 648, "security_violation": 0, "timestamp": 1783908555.9977589}
 {"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783908555.99856}
+{"inference_latency_sec": 2.392, "total_tokens": 551, "security_violation": 0, "timestamp": 1783908940.28594}
+{"inference_latency_sec": 3.4419, "total_tokens": 564, "security_violation": 0, "timestamp": 1783909004.115603}
+{"inference_latency_sec": 2.3603, "total_tokens": 521, "security_violation": 0, "timestamp": 1783909084.000782}
+{"inference_latency_sec": 7.7548, "total_tokens": 2176, "security_violation": 0, "timestamp": 1783909207.19771}
+{"inference_latency_sec": 6.7821, "total_tokens": 2227, "security_violation": 0, "timestamp": 1783909360.888109}
+{"inference_latency_sec": 3.0245, "total_tokens": 215, "security_violation": 0, "timestamp": 1783909587.286418}

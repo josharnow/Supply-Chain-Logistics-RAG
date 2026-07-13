@@ -13,8 +13,8 @@ SITREP_FILE = DATA_DIR / "sitrep_data.json"
 PROMPT_FILE = BASE_DIR / "src" / "prompts" / "logistics_assistant.md"
 
 # Model & System Configuration
-# Fallback line
+# This model is smaller for laptop use. A bigger model should be used in production to prevent hallucinations and improve accuracy.
 MODEL_NAME = "mlx-community/Llama-3.2-3B-Instruct-8bit"
 QUANTIZATION = "8-bit"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-TOP_K_RESULTS = 3
+TOP_K_RESULTS = 15
