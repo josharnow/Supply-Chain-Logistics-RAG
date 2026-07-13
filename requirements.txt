@@ -2,6 +2,8 @@ pandas
 langchain 
 langchain-chroma
 langchain-huggingface 
+langchain-openai
+faiss-cpu
 sentence-transformers 
 jupyter 
 requests

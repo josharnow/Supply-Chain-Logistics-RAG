@@ -1,52 +1,55 @@
 import time
-import requests
-from config import MODEL_NAME, QUANTIZATION, PROMPT_FILE
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from config import MODEL_NAME, PROMPT_FILE
 
 class InferenceEngine:
     def __init__(self):
-        self.model_name = MODEL_NAME
-        self.quantization = QUANTIZATION
-        self.api_url = "http://localhost:52415/v1/chat/completions"
+        # LangChain's OpenAI wrapper pointed at your local Exo node
+        self.llm = ChatOpenAI(
+            openai_api_base="http://localhost:52415/v1",
+            openai_api_key="exo-local-token", # Required by SDK, ignored by Exo
+            model_name=MODEL_NAME,
+            temperature=0.1,
+            max_tokens=512
+        )
         
         try:
             with open(PROMPT_FILE, "r") as f:
-                self.system_prompt = f.read()
+                system_prompt = f.read()
         except FileNotFoundError:
-            self.system_prompt = "You are a logistics assistant answering supply chain questions."
+            system_prompt = "You are a logistics assistant answering supply chain questions."
+
+        # Define the LangChain prompt template
+        self.prompt_template = ChatPromptTemplate.from_messages([
+            ("system", f"{system_prompt}\n\nContext:\n{{context}}"),
+            ("user", "{query}")
+        ])
+        
+        # Build the LangChain Expression Language (LCEL) chain
+        self.chain = self.prompt_template | self.llm
 
     def generate(self, user_query: str, retrieved_context: str) -> tuple[str, float, int]:
+        """Executes the LangChain LCEL chain."""
         start_time = time.time()
         
-        payload = {
-            "model": self.model_name,
-            "messages": [
-                {"role": "system", "content": f"{self.system_prompt}\n\nContext:\n{retrieved_context}"},
-                {"role": "user", "content": user_query}
-            ],
-            "temperature": 0.1,
-            "max_tokens": 512
-        }
-        
         try:
-            response = requests.post(self.api_url, json=payload, timeout=120)
+            # Invoke the chain with our dictionary variables
+            response = self.chain.invoke({
+                "context": retrieved_context,
+                "query": user_query
+            })
             
-            # Check for Exo server errors before trying to parse the JSON
-            if not response.ok:
-                print(f"\n[!] Exo API Error ({response.status_code}): {response.text}")
-                response.raise_for_status()
-                
-            data = response.json()
-            response_text = data["choices"][0]["message"]["content"]
+            response_text = response.content
             
-            prompt_tokens = data.get("usage", {}).get("prompt_tokens", 0)
-            response_tokens = data.get("usage", {}).get("completion_tokens", 0)
-            total_tokens = prompt_tokens + response_tokens
+            # Extract tokens from LangChain's response metadata
+            token_usage = response.response_metadata.get("token_usage", {})
+            total_tokens = token_usage.get("total_tokens", 0)
             
-        except requests.exceptions.RequestException as e:
-            print(f"\n[!] Local Exo node connection failed: {e}")
+        except Exception as e:
+            print(f"\n[!] LangChain to Exo connection failed: {e}")
             response_text = "Error: Could not communicate with local Exo inference node."
             total_tokens = 0
             
         latency = time.time() - start_time
-        
         return response_text, latency, total_tokens
