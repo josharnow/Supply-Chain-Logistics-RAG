@@ -2,3 +2,5 @@
 {"inference_latency_sec": 3.0036771297454834, "status_code": 200, "error_flag": 0, "retrieval_latency_sec": 0.09071803092956543, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783888614.6571798}
 {"inference_latency_sec": 21.636035203933716, "status_code": 200, "error_flag": 0, "retrieval_latency_sec": 0.024579763412475586, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783890550.983857}
 {"inference_latency_sec": 2.637408971786499, "status_code": 200, "error_flag": 0, "retrieval_latency_sec": 0.0242922306060791, "security_violation": 0, "context_chunks_fed": 2, "timestamp": 1783890681.1671}
+{"inference_latency_sec": 1.505, "total_tokens": 388, "security_violation": 0, "timestamp": 1783906533.73533}
+{"inference_latency_sec": 0.0, "total_tokens": 0, "security_violation": 1, "timestamp": 1783906533.737458}
