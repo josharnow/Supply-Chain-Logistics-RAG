@@ -71,8 +71,13 @@ class DocumentIngestor:
         if not self.vector_store:
             return "No local supply chain data available."
 
-        # Perform similarity search via LangChain
-        retriever = self.vector_store.as_retriever(search_kwargs={"k": top_k})
+        # Perform similarity search via LangChain (using cosine similarity)
+        retriever = self.vector_store.as_retriever(search_kwargs={"k": top_k}) # Wrap the database in a standardized LangChain "Retriever" interface so it can easily plug into other components (like LLM chains)
+        # Steps for invoke():
+        # 1. Embedding: Takes plain text query and converts it into a vector (an array of numbers) using predefined embedding model
+        # 2. Similarity Search: Compares that query vector against all the document vectors in the database to find the closest mathematical matches
+        # 3. Filtering: It applies the rule set earlier (grabbing only the top k results).
+        # 4. Returning: Outputs retrieved_docs, which is a list of LangChain Document objects containing the relevant text and any associated metadata
         retrieved_docs = retriever.invoke(query)
         
         return "\n---\n".join([doc.page_content for doc in retrieved_docs])
